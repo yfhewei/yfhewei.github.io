@@ -4,6 +4,7 @@
 ### code example
 ***
 * install the necessary package
+
 ```python
 %pip install h5py==2.10.0
 #安装HDF5文件的库
@@ -15,9 +16,10 @@
 #安装支持GPU的tf
 %pip install tokenizers
 #安装文本分词的工具库
-
 ```
+
 * import the related package
+
 ```python
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "0"
@@ -40,15 +42,17 @@ from tensorflow.keras.callbacks import EarlyStopping
 import pandas as pd
 import numpy as np
 import re
-
 ```
+
 * get the dataset
+
 ```python
 dish_raw = pd.read_csv('dish_raw.csv')[['cat_name','customer_id','dish_name']]
 #len(dish_raw)
 #dish_raw.head()
-
 ```
+
+* proprocess
 
 ```python
 #去除一些特殊字符噪音
@@ -72,7 +76,9 @@ def clean_dish_name(text):
     return ' '.join(words)
 dish_raw['clean_dish_name'] = dish_raw['dish_name'].apply(lambda x:clean_dish_name(x))
 ```
+
 * modeling
+
 ```python
 #tokenizer
 MAX_NB_WORDS = 8000
@@ -134,6 +140,7 @@ model.fit(X_train,
 ```
 
 * predict
+
 ```python
 dish_testDF = testDF[['customer_id']].merge(dish_raw[dish_raw['clean_dish_name'].notna()], how='inner').sample(frac=0.4, random_state=42)
 dish_testDF = dish_testDF.reset_index()
@@ -148,6 +155,7 @@ dish_reDF = pd.concat([dish_testDF, probDF], axis=1)
 ```
 
 * evaluate
+
 ```python
 # dish的topN的召回
 # —— 累计概率的阈值
