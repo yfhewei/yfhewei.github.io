@@ -1,10 +1,12 @@
-
-### about the problem
+[go back to mail page](README.md)
+### describe the problem
 * The purpose is to categorize the type of restaurant.
-* My method is done this by classifying the type of dishes offered by the restaurant.
-* Train a model to identify the type of dishes.
-* Through a LSTM DL molde.
-* 对短文本进行多分类建模。  
+* My method is to classify the type of dishes offered by the restaurant,
+* Then train a model to identify the type of dishes, 
+* Through a LSTM DL model.
+* that is 对短文本进行多分类建模。  
+* finally, use the result to categorize the restaurant.
+* following is the key code examples.
 
 ***
 ### key code examples
@@ -80,7 +82,7 @@ def clean_dish_name(text):
 dish_raw['clean_dish_name'] = dish_raw['dish_name'].apply(lambda x:clean_dish_name(x))
 ```
 
-#### modeling 
+#### modelling 
 
 ```python
 #tokenizer
