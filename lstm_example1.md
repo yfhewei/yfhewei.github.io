@@ -1,10 +1,14 @@
 
 ### about the problem
-* how to classify the dish by it's name.
+* The purpose is to categorize the type of restaurant.
+* My method is done this by classifying the type of dishes offered by the restaurant.
+* Train a model to identify the type of dishes.
+* Through a LSTM DL molde.
+* 对短文本进行多分类建模。  
 
-### code example
 ***
-* install the necessary package
+### key code examples
+#### first, install the necessary package
 
 ```python
 %pip install h5py==2.10.0
@@ -18,8 +22,8 @@
 %pip install tokenizers
 #安装文本分词的工具库
 ```
-***
-* import the related package
+
+#### second, import the related package, check the environment.
 
 ```python
 import os
@@ -45,15 +49,13 @@ import numpy as np
 import re
 ```
 
-* get the dataset
+#### third, read the dataset and some NLP proprocess.
 
 ```python
 dish_raw = pd.read_csv('dish_raw.csv')[['cat_name','customer_id','dish_name']]
 #len(dish_raw)
 #dish_raw.head()
 ```
-
-* proprocess
 
 ```python
 #去除一些特殊字符噪音
@@ -78,7 +80,7 @@ def clean_dish_name(text):
 dish_raw['clean_dish_name'] = dish_raw['dish_name'].apply(lambda x:clean_dish_name(x))
 ```
 
-* modeling
+#### modeling 
 
 ```python
 #tokenizer
@@ -100,7 +102,7 @@ custDF = custDF.sample(frac=1, random_state=42).reset_index(drop=True)
 train = custDF[:40000]
 test = custDF[50000:55000]
 
-#build the model
+# train Data 
 MAX_LENGTH = 30
 NUM_CLASS = 123
 
@@ -111,11 +113,12 @@ X_train = tokenizer.texts_to_sequences(dish_train['clean_dish_name'].values)
 # padding
 X_train = pad_sequences(X_train, MAX_LENGTH)
 
-#数值化
+#数值化label
 Y_train = le.transform(dish_train['cat_name'])
 
 W_train = dish_train['weight'].values
 
+# model structure
 model = Sequential()
 model.add(Embedding(MAX_NB_WORDS, 180, input_length=MAX_LENGTH))
 model.add(LSTM(units=180, dropout=0.2, return_sequences=True))
@@ -133,6 +136,7 @@ y_train_onehot = tf.keras.utils.to_categorical(Y_train, NUM_CLASS)
 # 设置早停回调函数
 early_stop = EarlyStopping(monitor='loss', patience=5)
 
+# train the model
 model.fit(X_train, 
           y_train_onehot,
           sample_weight=W_train, # 对样本重要性进行加权
@@ -142,7 +146,7 @@ model.fit(X_train,
          )
 ```
 
-* predict
+#### predict the test data by the trained model
 
 ```python
 dish_testDF = testDF[['customer_id']].merge(dish_raw[dish_raw['clean_dish_name'].notna()], how='inner').sample(frac=0.4, random_state=42)
@@ -157,7 +161,7 @@ probDF = pd.DataFrame(y_prob)
 dish_reDF = pd.concat([dish_testDF, probDF], axis=1)
 ```
 
-* evaluate
+#### evaluate the model
 
 ```python
 # dish的topN的召回
