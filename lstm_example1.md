@@ -1,3 +1,4 @@
+
 ### about the problem
 * how to classify the dish by it's name.
 
@@ -17,7 +18,7 @@
 %pip install tokenizers
 #安装文本分词的工具库
 ```
-
+***
 * import the related package
 
 ```python
@@ -118,9 +119,11 @@ W_train = dish_train['weight'].values
 model = Sequential()
 model.add(Embedding(MAX_NB_WORDS, 180, input_length=MAX_LENGTH))
 model.add(LSTM(units=180, dropout=0.2, return_sequences=True))
+model.add(Flatten())   # 拉平输出
+#LSTM参数return_sequences=True时，需要通过Flatten拉平，如果该参数为False，则不需要Flatten，直接跟Dense即可。
 #model.add(Dense(units=540, activation='softmax'))
 model.add(Dense(units=NUM_CLASS, activation='sigmoid'))
-model.compile(loss='binary_crossentropy', optimizer='adam')
+model.compile(loss='binary_crossentropy', optimizer='adam')   #loss='sparse_categorical_crossentropy'
 
 print(model.summary())
 
