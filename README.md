@@ -6,9 +6,9 @@
 ## examples
 * [NLP model exapmle1](lstm_example.md)
 * [Prediction of Category Customer Churn](Prediction_of_Category_Customer_Churn.md)
+* [Decison Tree example](20240625-1.md)
 
 ## ideas
-* [](20240624.md)
-* [](20240625-1.md)
-* [](dm_team_Development.md)
-* [](creativity_dm.md)
+* [经济、管理与数据科学](20240624.md)
+* [数据挖掘团队建设](dm_team_Development.md)
+* [数据挖掘与创新](creativity_dm.md)
