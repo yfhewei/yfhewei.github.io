@@ -1,6 +1,9 @@
 ## Dr Wei He's HomePage
 * This page shows some works and experiences about Data Science and Data Mining.
-
+## About me
+* PhD in data mining directions.
+* Focus on Data and Data mining technologies and applications.
+* Working in this field about 20 years.
 ***
 
 ## examples
