@@ -4,9 +4,11 @@ This page shows some works and experiences about Data Science and Data Mining.
 * PhD. major in data mining.
 * Focus on data science, machine learning and AI related technologies and applications.
 * Working in this field about 20 years.
-## Linkedin
-* www.linkedin.com/in/wei-he-3765649
+* Linkedin: [Wei He](www.linkedin.com/in/wei-he-3765649)
+
 ***
+***
+
 ## examples
 * [NLP model exapmle](lstm_example.md)
 * [Prediction of Category Customer Churn](Prediction_of_Category_Customer_Churn.md)
